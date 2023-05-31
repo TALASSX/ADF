@@ -1,0 +1,146 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "datafactory9010"
+		},
+		"AzureDataLakeStorage1PARQUETSERVICE_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1PARQUETSERVICE'"
+		},
+		"AzureDataLakeStorage1_service_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1_service'"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		},
+		"AzureSynapseAnalytics1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSynapseAnalytics1'"
+		},
+		"AzureSynapseAnalytics1_service_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSynapseAnalytics1_service'"
+		},
+		"linkedService1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'linkedService1'"
+		},
+		"nginx_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'nginx'"
+		},
+		"staagging_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'staagging'"
+		},
+		"AzureDataLakeStorage1PARQUETSERVICE_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://datalake9010.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage1_service_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://datalake9010.dfs.core.windows.net/"
+		},
+		"nginx_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "D:\\nginx-1.24.0\\"
+		},
+		"nginx_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "appuser"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "datafactory9010_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureDataLakeStorage1PARQUETSERVICE_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage1PARQUETSERVICE_accountKey')]"
+					},
+					"AzureDataLakeStorage1_service_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage1_service_accountKey')]"
+					},
+					"AzureSqlDatabase1_connectionString": {
+						"value": "[parameters('AzureSqlDatabase1_connectionString')]"
+					},
+					"AzureSynapseAnalytics1_connectionString": {
+						"value": "[parameters('AzureSynapseAnalytics1_connectionString')]"
+					},
+					"AzureSynapseAnalytics1_service_connectionString": {
+						"value": "[parameters('AzureSynapseAnalytics1_service_connectionString')]"
+					},
+					"linkedService1_connectionString": {
+						"value": "[parameters('linkedService1_connectionString')]"
+					},
+					"staagging_connectionString": {
+						"value": "[parameters('staagging_connectionString')]"
+					},
+					"nginx_password": {
+						"value": "[parameters('nginx_password')]"
+					},
+					"AzureDataLakeStorage1PARQUETSERVICE_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage1PARQUETSERVICE_properties_typeProperties_url')]"
+					},
+					"AzureDataLakeStorage1_service_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage1_service_properties_typeProperties_url')]"
+					},
+					"nginx_properties_typeProperties_host": {
+						"value": "[parameters('nginx_properties_typeProperties_host')]"
+					},
+					"nginx_properties_typeProperties_userId": {
+						"value": "[parameters('nginx_properties_typeProperties_userId')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "datafactory9010_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'datafactory9010_ArmTemplate_0')]"
+			]
+		}
+	]
+}
